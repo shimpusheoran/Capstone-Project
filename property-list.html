@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentEase - Verified Rental Properties & PGs | List Your Property</title>
+    <meta name="description" content="Browse verified rooms, single studios, executive PGs, and flats for rent with zero brokerage. Or list your own rental property on RentEase in minutes.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2878ff;
+            --primary-dark: #1554c0;
+            --primary-light: #eef4ff;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --dark: #0f172a;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-400: #94a3b8;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 22px;
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 14px 34px rgba(15, 23, 42, 0.12);
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Dark Mode Theme Tokens */
+        body.dark-mode {
+            --bg-light: #0b1120;
+            --card-bg: #1e293b;
+            --slate-900: #f8fafc;
+            --slate-800: #f1f5f9;
+            --slate-700: #e2e8f0;
+            --slate-600: #cbd5e1;
+            --slate-500: #94a3b8;
+            --slate-200: #334155;
+            --slate-100: #1e293b;
+            --primary-light: rgba(40, 120, 255, 0.15);
+            background-color: var(--bg-light);
+            color: #f1f5f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--slate-800);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--slate-200);
+            transition: var(--transition);
+        }
+
+        body.dark-mode header {
+            background: rgba(15, 23, 42, 0.92);
+            border-color: #334155;
+        }
+
+        .navbar {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--slate-900);
+            letter-spacing: -0.5px;
+        }
+
+        .brand span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--slate-600);
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-toggle-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--slate-200);
+            background: var(--card-bg);
+            color: var(--slate-700);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: rotate(20deg) scale(1.08);
+            border-color: var(--primary);
+        }
+
+        .btn-post-property {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 9px 18px;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.28);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-post-property:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.38);
+        }
+
+        .btn-dashboard-nav {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 9px 16px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            border: 1px solid rgba(40, 120, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .btn-dashboard-nav:hover {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #102a6b 0%, #1d4ed8 50%, #2878ff 100%);
+            color: #ffffff;
+            padding: 48px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            right: -80px;
+            bottom: -80px;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .hero-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-titles h1 {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            margin-bottom: 10px;
+        }
+
+        .hero-titles p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 620px;
+            line-height: 1.5;
+        }
+
+        .hero-stats-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .stat-badge-num {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .stat-badge-label {
+            font-size: 11px;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Search & Filter Bar Box */
+        .filter-card {
+            background: var(--card-bg);
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            margin-top: -30px;
+            margin-bottom: 32px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .filter-card {
+            background: var(--card-bg);
+            border-color: #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .search-inputs-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr auto;
+            gap: 14px;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--slate-600);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .form-input,
+        .form-select {
+            padding: 11px 14px;
+            border: 1.5px solid var(--slate-200);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            color: var(--slate-800);
+            background: #ffffff;
+            transition: var(--transition);
+            outline: none;
+            width: 100%;
+        }
+
+        body.dark-mode .form-input,
+        body.dark-mode .form-select {
+            background: #0f172a;
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(40, 120, 255, 0.15);
+        }
+
+        .btn-reset-filters {
+            padding: 11px 18px;
+            background: var(--slate-100);
+            border: 1.5px solid var(--slate-200);
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--slate-600);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-reset-filters:hover {
+            background: var(--slate-200);
+            color: var(--slate-900);
+        }
+
+        body.dark-mode .btn-reset-filters {
+            background: #1e293b;
+            border-color: #334155;
+            color: var(--slate-400);
+        }
+
+        /* Filter Pills & Amenities */
+        .filter-extra-row {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--slate-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        body.dark-mode .filter-extra-row {
+            border-color: #334155;
+        }
+
+        .chips-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chip-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--slate-500);
+            margin-right: 4px;
+        }
+
+        .amenity-chip {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--slate-200);
+            background: var(--card-bg);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--slate-600);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        body.dark-mode .amenity-chip {
+            border-color: #334155;
+            color: var(--slate-400);
+        }
+
+        .amenity-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .amenity-chip.active {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        body.dark-mode .amenity-chip.active {
+            background: rgba(40, 120, 255, 0.25);
+            color: #93c5fd;
+        }
+
+        /* Quick Type Pills */
+        .type-pills {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .type-pill {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: var(--slate-100);
+            color: var(--slate-600);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        body.dark-mode .type-pill {
+            background: #0f172a;
+            color: var(--slate-400);
+        }
+
+        .type-pill:hover {
+            background: var(--slate-200);
+            color: var(--slate-900);
+        }
+
+        .type-pill.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(40, 120, 255, 0.3);
+        }
+
+        /* Main Content Layout */
+        .content-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px 60px 24px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--slate-900);
+            letter-spacing: -0.4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-count-text {
+            font-size: 14px;
+            color: var(--slate-500);
+            font-weight: 600;
+        }
+
+        /* Listings Grid */
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 26px;
+        }
+
+        /* Property Card */
+        .property-card {
+            background: var(--card-bg);
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        body.dark-mode .property-card {
+            background: var(--card-bg);
+            border-color: #334155;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: #cbd5e1;
+        }
+
+        body.dark-mode .property-card:hover {
+            border-color: #475569;
+        }
+
+        .card-image-wrap {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            background: #e2e8f0;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .property-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .badge-type {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 14px;
+            left: 90px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        .badge-rating {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e293b;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 9px;
+            border-radius: 6px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-rating span {
+            color: #64748b;
+            font-weight: 500;
+            font-size: 11px;
+        }
+
+        .btn-fav {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+        }
+
+        .btn-fav:hover {
+            transform: scale(1.15);
+            background: #ffffff;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .price-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .price-period {
+            font-size: 12px;
+            color: var(--slate-500);
+            font-weight: 500;
+            margin-left: 2px;
+        }
+
+        .deposit-text {
+            font-size: 12px;
+            color: var(--slate-500);
+            font-weight: 600;
+        }
+
+        .badge-occupancy {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #0369a1;
+            background: #e0f2fe;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        body.dark-mode .badge-occupancy {
+            background: rgba(3, 105, 161, 0.25);
+            color: #7dd3fc;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .card-location {
+            font-size: 13px;
+            color: var(--slate-500);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 18px;
+            margin-top: auto;
+        }
+
+        .amenity-tag {
+            font-size: 11px;
+            padding: 4px 9px;
+            background: var(--slate-100);
+            color: var(--slate-600);
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        body.dark-mode .amenity-tag {
+            background: #0f172a;
+            color: var(--slate-400);
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding-top: 14px;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        body.dark-mode .card-actions {
+            border-color: #334155;
+        }
+
+        .btn-card-outline {
+            padding: 10px;
+            border: 1.5px solid var(--slate-200);
+            background: transparent;
+            color: var(--slate-700);
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .btn-card-outline {
+            border-color: #334155;
+            color: var(--slate-300);
+        }
+
+        .btn-card-outline:hover {
+            background: var(--slate-100);
+            border-color: var(--slate-300);
+        }
+
+        body.dark-mode .btn-card-outline:hover {
+            background: #334155;
+        }
+
+        .btn-card-primary {
+            padding: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(40, 120, 255, 0.25);
+        }
+
+        .btn-card-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(40, 120, 255, 0.35);
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 70px 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            border: 1.5px dashed var(--slate-200);
+        }
+
+        .empty-icon {
+            font-size: 52px;
+            margin-bottom: 14px;
+        }
+
+        .empty-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 6px;
+        }
+
+        .empty-desc {
+            font-size: 14px;
+            color: var(--slate-500);
+            max-width: 440px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: modalFadeIn 0.25s ease forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            max-width: 680px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--slate-200);
+        }
+
+        body.dark-mode .modal-box {
+            background: var(--card-bg);
+            border-color: #334155;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: #0f172a;
+            transform: rotate(90deg);
+        }
+
+        .modal-img-wrap {
+            position: relative;
+            height: 280px;
+        }
+
+        .modal-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-gallery-thumbs {
+            display: flex;
+            gap: 10px;
+            padding: 14px 28px 0 28px;
+            overflow-x: auto;
+            align-items: center;
+        }
+
+        .modal-gallery-thumb {
+            width: 72px;
+            height: 52px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+            opacity: 0.72;
+        }
+
+        .modal-gallery-thumb:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .modal-gallery-thumb.active {
+            opacity: 1;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(40, 120, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        .modal-content {
+            padding: 24px 28px 28px 28px;
+        }
+
+        .modal-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--slate-900);
+        }
+
+        .modal-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--slate-600);
+            margin-bottom: 20px;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+            background: var(--slate-100);
+            padding: 16px;
+            border-radius: var(--radius-md);
+        }
+
+        body.dark-mode .spec-grid {
+            background: #0f172a;
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--slate-500);
+            margin-bottom: 4px;
+        }
+
+        .spec-val {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--slate-900);
+        }
+
+        .host-info-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--slate-100);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+        }
+
+        body.dark-mode .host-info-card {
+            background: #0f172a;
+        }
+
+        .host-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .host-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .host-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--slate-900);
+        }
+
+        .host-status {
+            font-size: 12px;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .host-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .btn-call {
+            background: var(--primary);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        /* Post Property Modal Form Styles */
+        .modal-form-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 6px;
+        }
+
+        .modal-form-sub {
+            font-size: 13px;
+            color: var(--slate-500);
+            margin-bottom: 22px;
+        }
+
+        .form-section-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 18px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .photo-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+            margin-bottom: 14px;
+        }
+
+        .photo-pick-option {
+            height: 75px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .photo-pick-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-pick-option:hover {
+            transform: scale(1.03);
+            border-color: var(--primary);
+        }
+
+        .photo-pick-option.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(40, 120, 255, 0.35);
+        }
+
+        .photo-pick-label {
+            position: absolute;
+            bottom: 3px;
+            left: 3px;
+            right: 3px;
+            background: rgba(15, 23, 42, 0.75);
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 4px;
+            padding: 2px;
+        }
+
+        .amenity-checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--slate-700);
+            cursor: pointer;
+        }
+
+        body.dark-mode .checkbox-item {
+            color: var(--slate-300);
+        }
+
+        .checkbox-item input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        body.dark-mode .modal-actions {
+            border-color: #334155;
+        }
+
+        .btn-submit-property {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 12px 28px;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-submit-property:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: #ffffff;
+            padding: 14px 22px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left-color: #10b981;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--slate-200);
+            padding: 30px 24px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--slate-500);
+            margin-top: auto;
+        }
+
+        body.dark-mode footer {
+            border-color: #334155;
+        }
+
+        /* Responsive */
+        @media(max-width: 992px) {
+            .search-inputs-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .listings-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media(max-width: 640px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+            .search-inputs-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .listings-grid {
+                grid-template-columns: 1fr;
+            }
+            .photo-picker-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="navbar">
+            <a href="login.html" class="brand">
+                🏠 Rent<span>Ease</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="login.html" class="nav-link">Home</a></li>
+                <li><a href="property-list.html" class="nav-link active">Explore Properties</a></li>
+                <li><a href="dashboard.html" class="nav-link">Tenant Dashboard</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+                <button class="btn-post-property" onclick="openPostModal()">
+                    ➕ List Property
+                </button>
+                <a href="dashboard.html" class="btn-dashboard-nav">Dashboard →</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-container">
+            <div class="hero-header-row">
+                <div class="hero-titles">
+                    <h1>Verified Rooms, PGs & Flats for Rent 🏠</h1>
+                    <p>Discover 100% verified single rooms, executive co-ed PGs, and independent apartments in top tech localities. Zero brokerage guaranteed.</p>
+                </div>
+                <div class="hero-stats-row">
+                    <div class="stat-badge">
+                        <div class="stat-badge-num" id="statTotalUnits">8</div>
+                        <div class="stat-badge-label">Available Units</div>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-badge-num">₹6,000</div>
+                        <div class="stat-badge-label">Starting Rent</div>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-badge-num">0%</div>
+                        <div class="stat-badge-label">Brokerage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content & Filters -->
+    <main class="content-container">
+        <!-- Filter Card -->
+        <div class="filter-card">
+            <div class="search-inputs-grid">
+                <div class="form-group">
+                    <label class="form-label" for="searchInput">Location or Landmark</label>
+                    <input type="text" id="searchInput" class="form-input" placeholder="e.g. Koramangala, Indiranagar, HSR, Metro...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="typeFilter">Property Type</label>
+                    <select id="typeFilter" class="form-select">
+                        <option value="all">All Types</option>
+                        <option value="PG">PG (Boys / Girls / Co-ed)</option>
+                        <option value="Single Room">Single Room / 1RK</option>
+                        <option value="1BHK">1 BHK Apartment</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="budgetFilter">Max Budget</label>
+                    <select id="budgetFilter" class="form-select">
+                        <option value="all">Any Budget</option>
+                        <option value="8000">Under ₹8,000 / mo</option>
+                        <option value="12000">Under ₹12,000 / mo</option>
+                        <option value="16000">Under ₹16,000 / mo</option>
+                        <option value="25000">Under ₹25,000 / mo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="sortFilter">Sort By</label>
+                    <select id="sortFilter" class="form-select">
+                        <option value="recommended">Recommended</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="rating-desc">Highest Rated ⭐</option>
+                        <option value="newest">Newly Listed ✨</option>
+                    </select>
+                </div>
+
+                <button class="btn-reset-filters" onclick="resetFilters()">Reset Filters</button>
+            </div>
+
+            <!-- Extra Filters: Quick Pills & Amenity Chips -->
+            <div class="filter-extra-row">
+                <div class="type-pills">
+                    <button class="type-pill active" data-type="all" onclick="selectTypePill(this, 'all')">All Stays</button>
+                    <button class="type-pill" data-type="PG" onclick="selectTypePill(this, 'PG')">🏠 PGs</button>
+                    <button class="type-pill" data-type="Single Room" onclick="selectTypePill(this, 'Single Room')">🛏️ Single Rooms</button>
+                    <button class="type-pill" data-type="1BHK" onclick="selectTypePill(this, '1BHK')">🏢 1 BHK Flats</button>
+                </div>
+
+                <div class="chips-container">
+                    <span class="chip-label">Amenities:</span>
+                    <div class="amenity-chip" data-amenity="WiFi" onclick="toggleAmenity(this)">📶 WiFi</div>
+                    <div class="amenity-chip" data-amenity="AC" onclick="toggleAmenity(this)">❄️ AC</div>
+                    <div class="amenity-chip" data-amenity="Food Included" onclick="toggleAmenity(this)">🍲 Food Included</div>
+                    <div class="amenity-chip" data-amenity="Attached Bath" onclick="toggleAmenity(this)">🚿 Attached Bath</div>
+                    <div class="amenity-chip" data-amenity="Power Backup" onclick="toggleAmenity(this)">⚡ Power Backup</div>
+                    <div class="amenity-chip" data-amenity="No Brokerage" onclick="toggleAmenity(this)">🏷️ Zero Brokerage</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Title & Results Bar -->
+        <div class="section-header">
+            <h2 class="section-title">
+                Available Accommodations
+            </h2>
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <span class="results-count-text" id="resultsCount">Loading properties...</span>
+                <button class="btn-post-property" style="font-size: 13px; padding: 7px 14px;" onclick="openPostModal()">
+                    ➕ Add Listing
+                </button>
+            </div>
+        </div>
+
+        <!-- Listings Grid -->
+        <div class="listings-grid" id="listingsContainer">
+            <!-- Dynamically populated -->
+        </div>
+    </main>
+
+    <!-- Modal 1: Property Details & Booking -->
+    <div class="modal-overlay" id="propertyModal" onclick="closeModalOnOutside(event, 'propertyModal')">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('propertyModal')">✕</button>
+            <div class="modal-img-wrap">
+                <img id="modalImg" src="" alt="Property Preview">
+            </div>
+            
+            <!-- Gallery Thumbnails (Little Photos) -->
+            <div class="modal-gallery-thumbs" id="modalGalleryThumbs"></div>
+
+            <div class="modal-content">
+                <div class="modal-header-row">
+                    <div>
+                        <h2 class="modal-title" id="modalTitle">Property Title</h2>
+                        <p class="card-location" id="modalLocation">📍 Location</p>
+                    </div>
+                    <div>
+                        <div class="modal-price" id="modalPrice">₹0</div>
+                        <div class="deposit-text" id="modalDeposit">Deposit: 1 Month</div>
+                    </div>
+                </div>
+
+                <p class="modal-desc" id="modalDesc"></p>
+
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <div class="spec-label">Stay Type</div>
+                        <div class="spec-val" id="modalType">-</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Occupancy</div>
+                        <div class="spec-val" id="modalOccupancy">Co-ed</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Notice Period</div>
+                        <div class="spec-val">30 Days</div>
+                    </div>
+                </div>
+
+                <!-- Host Direct Contact Card -->
+                <div class="host-info-card">
+                    <div class="host-profile">
+                        <img id="modalHostAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Host" class="host-avatar">
+                        <div>
+                            <div class="host-name" id="modalHostName">Verified Host</div>
+                            <div class="host-status">🟢 Responds within 15 mins</div>
+                        </div>
+                    </div>
+                    <div class="host-actions">
+                        <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn-whatsapp">💬 WhatsApp</a>
+                        <a id="modalCallBtn" href="#" class="btn-call">📞 Call</a>
+                    </div>
+                </div>
+
+                <!-- Schedule Visit Form -->
+                <div style="background: var(--slate-100); padding: 20px; border-radius: var(--radius-md);">
+                    <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 12px; color: var(--slate-900);">📅 Schedule a Free In-Person Visit</h3>
+                    <form onsubmit="handleScheduleVisit(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                            <div>
+                                <label class="form-label">Preferred Date</label>
+                                <input type="date" id="visitDate" class="form-input" required>
+                            </div>
+                            <div>
+                                <label class="form-label">Time Slot</label>
+                                <select id="visitSlot" class="form-select">
+                                    <option value="Morning (10:00 AM - 1:00 PM)">Morning (10:00 AM - 1:00 PM)</option>
+                                    <option value="Afternoon (2:00 PM - 5:00 PM)">Afternoon (2:00 PM - 5:00 PM)</option>
+                                    <option value="Evening (5:00 PM - 8:00 PM)">Evening (5:00 PM - 8:00 PM)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-card-primary" style="width: 100%; padding: 12px; font-size: 14px;">Confirm Visit Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: "List Your Property" Owner Form -->
+    <div class="modal-overlay" id="postPropertyModal" onclick="closeModalOnOutside(event, 'postPropertyModal')">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('postPropertyModal')">✕</button>
+            <div class="modal-content" style="padding-top: 28px;">
+                <h2 class="modal-form-title">➕ List Your Rental Property</h2>
+                <p class="modal-form-sub">Post your room, PG, or flat on RentEase for free. Connect directly with verified tenants.</p>
+
+                <form id="postPropertyForm" onsubmit="handlePostProperty(event)">
+                    <!-- Step 1: Basics -->
+                    <div class="form-section-title">🏠 Basic Information</div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label class="form-label" for="postTitle">Property / PG Title *</label>
+                        <input type="text" id="postTitle" class="form-input" placeholder="e.g. Sri Krishna Executive PG or Cozy 1BHK" required>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="postType">Stay Type *</label>
+                            <select id="postType" class="form-select" required>
+                                <option value="PG">PG (Paying Guest)</option>
+                                <option value="Single Room">Single Room / 1RK</option>
+                                <option value="1BHK">1 BHK Apartment</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="postOccupancy">Occupancy Rule *</label>
+                            <select id="postOccupancy" class="form-select" required>
+                                <option value="Co-ed PG">Co-ed (All Welcome)</option>
+                                <option value="Boys Only">Boys Only</option>
+                                <option value="Girls Only">Girls Only</option>
+                                <option value="Private Studio">Private Studio</option>
+                                <option value="Family Friendly">Family Friendly</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Location & Rent -->
+                    <div class="form-section-title">📍 Location & Pricing</div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label class="form-label" for="postLocation">Full Address / Landmark *</label>
+                        <input type="text" id="postLocation" class="form-input" placeholder="e.g. 7th Block, Koramangala, Bengaluru" required>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="postPrice">Monthly Rent (₹) *</label>
+                            <input type="number" id="postPrice" class="form-input" placeholder="e.g. 9500" min="2000" max="200000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="postDeposit">Security Deposit *</label>
+                            <input type="text" id="postDeposit" class="form-input" placeholder="e.g. ₹10,000 (1 Month)" required>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Photos (Preset picker + custom URL) -->
+                    <div class="form-section-title">📸 Property Photos</div>
+                    <p style="font-size: 12px; color: var(--slate-500); margin-bottom: 8px;">Pick a high quality room photo preset or paste your custom image URL:</p>
+                    
+                    <div class="photo-picker-grid">
+                        <div class="photo-pick-option selected" onclick="selectPresetPhoto(this, 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80')">
+                            <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=300&q=80" alt="Preset 1">
+                            <span class="photo-pick-label">Cozy Room</span>
+                        </div>
+                        <div class="photo-pick-option" onclick="selectPresetPhoto(this, 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80')">
+                            <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=300&q=80" alt="Preset 2">
+                            <span class="photo-pick-label">Twin Bed PG</span>
+                        </div>
+                        <div class="photo-pick-option" onclick="selectPresetPhoto(this, 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80')">
+                            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=300&q=80" alt="Preset 3">
+                            <span class="photo-pick-label">Luxury Suite</span>
+                        </div>
+                        <div class="photo-pick-option" onclick="selectPresetPhoto(this, 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80')">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=300&q=80" alt="Preset 4">
+                            <span class="photo-pick-label">Modern 1BHK</span>
+                        </div>
+                        <div class="photo-pick-option" onclick="selectPresetPhoto(this, 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef3?auto=format&fit=crop&w=800&q=80')">
+                            <img src="https://images.unsplash.com/photo-1540518614846-7ede433c4ef3?auto=format&fit=crop&w=300&q=80" alt="Preset 5">
+                            <span class="photo-pick-label">Bright Studio</span>
+                        </div>
+                        <div class="photo-pick-option" onclick="selectPresetPhoto(this, 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80')">
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300&q=80" alt="Preset 6">
+                            <span class="photo-pick-label">Balcony Flat</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 14px;">
+                        <label class="form-label" for="postImageUrl">Or Custom Photo URL</label>
+                        <input type="url" id="postImageUrl" class="form-input" value="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80" oninput="updatePhotoPreview(this.value)">
+                    </div>
+
+                    <!-- Step 4: Amenities -->
+                    <div class="form-section-title">✨ Included Amenities</div>
+                    <div class="amenity-checkbox-grid">
+                        <label class="checkbox-item"><input type="checkbox" name="postAmenity" value="WiFi" checked> 📶 High-Speed WiFi</label>
+                        <label class="checkbox-item"><input type="checkbox" name="postAmenity" value="AC" checked> ❄️ Air Conditioning</label>
+                        <label class="checkbox-item"><input type="checkbox" name="postAmenity" value="Food Included" checked> 🍲 Food Included</label>
+                        <label class="checkbox-item"><input type="checkbox" name="postAmenity" value="Attached Bath" checked> 🚿 Attached Bath</label>
+                        <label class="checkbox-item"><input type="checkbox" name="postAmenity" value="Power Backup" checked> ⚡ Power Backup</label>
+                        <label class="checkbox-item"><input type="checkbox" name="postAmenity" value="No Brokerage" checked> 🏷️ Zero Brokerage</label>
+                    </div>
+
+                    <!-- Step 5: Host Contact -->
+                    <div class="form-section-title">👤 Owner / Host Details</div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="postHostName">Owner / Host Name *</label>
+                            <input type="text" id="postHostName" class="form-input" placeholder="e.g. Ramesh Sharma" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="postHostPhone">Phone Number *</label>
+                            <input type="tel" id="postHostPhone" class="form-input" placeholder="+91 98765 43210" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 14px;">
+                        <label class="form-label" for="postDesc">Property Description</label>
+                        <textarea id="postDesc" class="form-input" style="min-height: 80px; resize: vertical;" placeholder="Describe furnishings, proximity to metro, food menu, rules..."></textarea>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn-reset-filters" onclick="closeModal('postPropertyModal')">Cancel</button>
+                        <button type="submit" class="btn-submit-property">Publish Property Listing 🚀</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastIcon">🎉</span>
+        <span id="toastMsg">Notification message</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 RentEase Inc. All rental properties are verified for quality and safety. Zero brokerage guaranteed.</p>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Default verified rental database
+        const defaultProperties = [
+            {
+                id: 1,
+                title: "Green Valley Luxury PG (Co-ed)",
+                type: "PG",
+                location: "5th Block, Koramangala, Bengaluru",
+                price: 9500,
+                deposit: "₹9,500 (1 Month)",
+                rating: 4.8,
+                reviewsCount: 42,
+                occupancy: "Co-ed PG",
+                availability: "Immediate Move-in",
+                hostName: "Ramesh Sharma (Host)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "AC", "Food Included", "Attached Bath", "Power Backup", "No Brokerage"],
+                description: "Modern, fully furnished co-ed PG with home-cooked 3-time meals, daily room cleaning, high-speed fiber internet, and 24/7 security surveillance."
+            },
+            {
+                id: 2,
+                title: "Skyline Boys Executive PG",
+                type: "PG",
+                location: "Sector 2, HSR Layout, Bengaluru",
+                price: 7500,
+                deposit: "₹7,500 (1 Month)",
+                rating: 4.6,
+                reviewsCount: 38,
+                occupancy: "Boys Only",
+                availability: "Immediate Move-in",
+                hostName: "Karthik Gowda (Owner)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1540518614846-7ede433c4ef3?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "Food Included", "Power Backup", "No Brokerage"],
+                description: "Spacious twin and triple sharing rooms for students and working professionals. Located walking distance from tech hubs, with laundry and meal facilities."
+            },
+            {
+                id: 3,
+                title: "Serene Stays - Premium Girls PG",
+                type: "PG",
+                location: "100ft Road, Indiranagar, Bengaluru",
+                price: 11000,
+                deposit: "₹15,000",
+                rating: 4.9,
+                reviewsCount: 54,
+                occupancy: "Girls Only",
+                availability: "Available from Next Week",
+                hostName: "Sunita Hegde (Superhost)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "AC", "Food Included", "Attached Bath", "Power Backup"],
+                description: "Safe and secure luxury accommodation for women with biometric entry, North & South Indian meals, gym access, and balcony rooms."
+            },
+            {
+                id: 4,
+                title: "Urban Nest 1BHK Furnished Flat",
+                type: "1BHK",
+                location: "ITPL Main Road, Whitefield, Bengaluru",
+                price: 18500,
+                deposit: "₹35,000",
+                rating: 4.7,
+                reviewsCount: 29,
+                occupancy: "Independent 1BHK",
+                availability: "Ready to Move",
+                hostName: "Anand Verma (Owner)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "AC", "Attached Bath", "Power Backup", "No Brokerage"],
+                description: "Independent 1 BHK flat featuring modular kitchen, refrigerator, washing machine, living area with smart TV, and private covered car parking."
+            },
+            {
+                id: 5,
+                title: "Comfort Zone Studio Room",
+                type: "Single Room",
+                location: "BTM 2nd Stage, near Udupi Garden, Bengaluru",
+                price: 8200,
+                deposit: "₹10,000",
+                rating: 4.5,
+                reviewsCount: 22,
+                occupancy: "Private Studio",
+                availability: "Immediate Move-in",
+                hostName: "Deepak Kumar (Host)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1540518614846-7ede433c4ef3?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1540518614846-7ede433c4ef3?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "Attached Bath", "No Brokerage"],
+                description: "Quiet private single room with attached bath, wardrobe, and study table. Ideal for working professionals seeking privacy near silk board and metro."
+            },
+            {
+                id: 6,
+                title: "Zolo Oasis Co-living Private Room",
+                type: "Single Room",
+                location: "Green Glen Layout, Bellandur, Bengaluru",
+                price: 14000,
+                deposit: "₹14,000 (1 Month)",
+                rating: 4.8,
+                reviewsCount: 47,
+                occupancy: "Single Room",
+                availability: "Ready to Move",
+                hostName: "Pooja Reddy (Manager)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "AC", "Attached Bath", "Power Backup", "No Brokerage"],
+                description: "Premium single occupancy room in a vibrant co-living community. Includes dedicated workspace, recreation lounge with pool table, and high-speed Wi-Fi."
+            },
+            {
+                id: 7,
+                title: "Bliss Studio Apartments (Single Occupancy)",
+                type: "Single Room",
+                location: "12th Main, Indiranagar, Bengaluru",
+                price: 13500,
+                deposit: "₹15,000",
+                rating: 4.9,
+                reviewsCount: 56,
+                occupancy: "Private Studio",
+                availability: "Ready to Move",
+                hostName: "Vikram Malhotra (Superhost)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "AC", "Attached Bath", "Power Backup", "No Brokerage"],
+                description: "Chic modern studio apartment with balcony view, pantry counter, smart TV, high-speed WiFi, and 24/7 security in the heart of Indiranagar."
+            },
+            {
+                id: 8,
+                title: "Greenwood Executive Co-living & Suites",
+                type: "PG",
+                location: "Phase 1, Electronic City, Bengaluru",
+                price: 8800,
+                deposit: "₹8,800 (1 Month)",
+                rating: 4.7,
+                reviewsCount: 31,
+                occupancy: "Co-ed (Separate Wings)",
+                availability: "Immediate Move-in",
+                hostName: "Manoj Swamy (Host)",
+                hostPhone: "+91 98765 43210",
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+                gallery: [
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: ["WiFi", "AC", "Food Included", "Attached Bath", "Power Backup"],
+                description: "Executive co-living suites near major tech parks. 3 delicious meals served daily, gym, laundry, indoor games, and blazing fast fiber Wi-Fi."
+            }
+        ];
+
+        // Active State
+        let selectedAmenities = new Set();
+        let savedPropertyIds = new Set();
+        let currentModalProperty = null;
+
+        // Fetch all properties (default + user added)
+        function getAllProperties() {
+            try {
+                const custom = JSON.parse(localStorage.getItem('rentease_custom_properties') || '[]');
+                return [...custom, ...defaultProperties];
+            } catch (e) {
+                return defaultProperties;
+            }
+        }
+
+        // Init page
+        window.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            loadSavedFavorites();
+            renderListings();
+
+            // Set min date for visit booking to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dateInput = document.getElementById('visitDate');
+            if (dateInput) {
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+            }
+
+            // Search listeners
+            document.getElementById('searchInput').addEventListener('input', renderListings);
+            document.getElementById('typeFilter').addEventListener('change', () => {
+                syncPillsWithTypeFilter(document.getElementById('typeFilter').value);
+                renderListings();
+            });
+            document.getElementById('budgetFilter').addEventListener('change', renderListings);
+            document.getElementById('sortFilter').addEventListener('change', renderListings);
+
+            // Check if URL specifies action=list
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('action') === 'list' || window.location.hash === '#list') {
+                openPostModal();
+            }
+        });
+
+        // Theme Toggle (Light / Dark Mode)
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            const themeBtn = document.getElementById('themeToggleBtn');
+            if (themeBtn) themeBtn.innerText = isDark ? '☀️' : '🌙';
+            localStorage.setItem('rentease_theme', isDark ? 'dark' : 'light');
+            showToast(isDark ? "Switched to Dark Mode 🌙" : "Switched to Light Mode ☀️");
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('rentease_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark-mode');
+                const themeBtn = document.getElementById('themeToggleBtn');
+                if (themeBtn) themeBtn.innerText = '☀️';
+            }
+        }
+
+        // Saved Favorites Logic
+        function loadSavedFavorites() {
+            try {
+                const stored = localStorage.getItem('rentease_saved_props');
+                if (stored) {
+                    savedPropertyIds = new Set(JSON.parse(stored));
+                }
+            } catch (e) {
+                console.error("Error reading saved properties", e);
+            }
+        }
+
+        function toggleSave(id) {
+            if (savedPropertyIds.has(id)) {
+                savedPropertyIds.delete(id);
+                showToast("Removed from saved list");
+            } else {
+                savedPropertyIds.add(id);
+                showToast("Saved to your favorites ❤️");
+            }
+            localStorage.setItem('rentease_saved_props', JSON.stringify([...savedPropertyIds]));
+            renderListings();
+        }
+
+        // Amenity chip toggle
+        function toggleAmenity(el) {
+            const amenity = el.getAttribute('data-amenity');
+            if (selectedAmenities.has(amenity)) {
+                selectedAmenities.delete(amenity);
+                el.classList.remove('active');
+            } else {
+                selectedAmenities.add(amenity);
+                el.classList.add('active');
+            }
+            renderListings();
+        }
+
+        // Quick type pill toggle
+        function selectTypePill(btn, type) {
+            document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('typeFilter').value = type;
+            renderListings();
+        }
+
+        function syncPillsWithTypeFilter(type) {
+            document.querySelectorAll('.type-pill').forEach(pill => {
+                if (pill.getAttribute('data-type') === type) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('typeFilter').value = 'all';
+            document.getElementById('budgetFilter').value = 'all';
+            document.getElementById('sortFilter').value = 'recommended';
+            
+            selectedAmenities.clear();
+            document.querySelectorAll('.amenity-chip').forEach(c => c.classList.remove('active'));
+            syncPillsWithTypeFilter('all');
+
+            renderListings();
+            showToast("Filters reset to default 🔄");
+        }
+
+        // Render Property Cards
+        function renderListings() {
+            const container = document.getElementById('listingsContainer');
+            const allProps = getAllProperties();
+
+            // Update stats badge
+            const statTotalEl = document.getElementById('statTotalUnits');
+            if (statTotalEl) statTotalEl.innerText = allProps.length;
+
+            const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
+            const typeVal = document.getElementById('typeFilter').value;
+            const budgetVal = document.getElementById('budgetFilter').value;
+            const sortVal = document.getElementById('sortFilter').value;
+
+            const filtered = allProps.filter(item => {
+                // Search match
+                const matchSearch = searchVal === '' || 
+                    item.title.toLowerCase().includes(searchVal) || 
+                    item.location.toLowerCase().includes(searchVal);
+
+                // Type match
+                const matchType = typeVal === 'all' || item.type === typeVal;
+
+                // Budget match
+                let matchBudget = true;
+                if (budgetVal !== 'all') {
+                    matchBudget = item.price <= parseInt(budgetVal);
+                }
+
+                // Amenity match
+                let matchAmenities = true;
+                if (selectedAmenities.size > 0) {
+                    for (let am of selectedAmenities) {
+                        if (!item.amenities || !item.amenities.includes(am)) {
+                            matchAmenities = false;
+                            break;
+                        }
+                    }
+                }
+
+                return matchSearch && matchType && matchBudget && matchAmenities;
+            });
+
+            // Sorting
+            if (sortVal === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'rating-desc') {
+                filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+            } else if (sortVal === 'newest') {
+                filtered.sort((a, b) => (b.isCustom ? 1 : 0) - (a.isCustom ? 1 : 0));
+            }
+
+            document.getElementById('resultsCount').innerText = `Showing ${filtered.length} of ${allProps.length} verified properties`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🏠🔍</div>
+                        <h3 class="empty-title">No matching rental properties found</h3>
+                        <p class="empty-desc">Try clearing some amenity filters or adjusting your budget to explore more verified rooms and PGs.</p>
+                        <button class="btn-card-primary" onclick="resetFilters()">Reset All Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => createCardHTML(item)).join('');
+        }
+
+        // Generate Card HTML
+        function createCardHTML(item) {
+            const isFav = savedPropertyIds.has(item.id);
+            return `
+                <div class="property-card" id="prop-${item.id}">
+                    <div class="card-image-wrap">
+                        <img src="${item.image}" alt="${item.title}" class="card-image" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80'">
+                        <span class="badge-type">${item.type}</span>
+                        ${item.isCustom ? `<span class="badge-new">✨ Just Listed</span>` : ''}
+                        <span class="badge-rating">⭐ ${item.rating || 4.8} <span>(${item.reviewsCount || 20})</span></span>
+                        <button class="btn-fav" onclick="toggleSave(${item.id})" title="${isFav ? 'Remove from saved' : 'Save listing'}">
+                            ${isFav ? '❤️' : '🤍'}
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="card-price-row">
+                            <div>
+                                <span class="price-text">₹${item.price.toLocaleString('en-IN')}</span>
+                                <span class="price-period">/ month</span>
+                            </div>
+                            <span class="deposit-text">${item.deposit}</span>
+                        </div>
+
+                        <span class="badge-occupancy">${item.occupancy || 'Available'}</span>
+
+                        <h3 class="card-title">${item.title}</h3>
+                        <div class="card-location">📍 ${item.location}</div>
+
+                        <div class="card-amenities">
+                            ${(item.amenities || []).slice(0, 4).map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+                            ${(item.amenities || []).length > 4 ? `<span class="amenity-tag">+${item.amenities.length - 4} more</span>` : ''}
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="btn-card-outline" onclick="openDetailsModal(${item.id})">View Details</button>
+                            <button class="btn-card-primary" onclick="openScheduleModal(${item.id})">Book Visit</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Details Modal
+        function openDetailsModal(id) {
+            const allProps = getAllProperties();
+            const property = allProps.find(p => p.id === id);
+            if (!property) return;
+            currentModalProperty = property;
+
+            document.getElementById('modalImg').src = property.image;
+            document.getElementById('modalTitle').innerText = property.title;
+            document.getElementById('modalLocation').innerText = `📍 ${property.location}`;
+            document.getElementById('modalPrice').innerText = `₹${property.price.toLocaleString('en-IN')} / mo`;
+            document.getElementById('modalDeposit').innerText = `Deposit: ${property.deposit}`;
+            document.getElementById('modalDesc').innerText = property.description || "Fully furnished accommodation with high-speed internet, verified security, and maintenance.";
+            document.getElementById('modalType').innerText = property.type;
+            document.getElementById('modalOccupancy').innerText = property.occupancy || "Co-ed";
+
+            // Multi-photo gallery thumbnails
+            const galleryContainer = document.getElementById('modalGalleryThumbs');
+            if (galleryContainer) {
+                const photos = property.gallery && property.gallery.length > 0 ? property.gallery : [property.image];
+                galleryContainer.innerHTML = photos.map((imgUrl, i) => `
+                    <img src="${imgUrl}" alt="Thumbnail ${i + 1}" class="modal-gallery-thumb ${imgUrl === property.image ? 'active' : ''}" onclick="selectModalImage(this, '${imgUrl}')">
+                `).join('');
+            }
+
+            // Host info & direct connect buttons
+            document.getElementById('modalHostName').innerText = property.hostName || "Verified Landlord";
+            const phone = property.hostPhone ? property.hostPhone.replace(/\D/g, '') : "919876543210";
+            const msg = encodeURIComponent(`Hi, I found your listing "${property.title}" on RentEase and would like more details.`);
+            
+            document.getElementById('modalWhatsAppBtn').href = `https://wa.me/${phone}?text=${msg}`;
+            document.getElementById('modalCallBtn').href = `tel:+${phone}`;
+
+            openModal('propertyModal');
+        }
+
+        function selectModalImage(thumbEl, src) {
+            document.getElementById('modalImg').src = src;
+            document.querySelectorAll('.modal-gallery-thumb').forEach(t => t.classList.remove('active'));
+            thumbEl.classList.add('active');
+        }
+
+        function openScheduleModal(id) {
+            openDetailsModal(id);
+            setTimeout(() => {
+                const modalBox = document.querySelector('#propertyModal .modal-box');
+                if (modalBox) modalBox.scrollTo({ top: modalBox.scrollHeight, behavior: 'smooth' });
+            }, 100);
+        }
+
+        function handleScheduleVisit(e) {
+            e.preventDefault();
+            const date = document.getElementById('visitDate').value;
+            const slot = document.getElementById('visitSlot').value;
+            const propTitle = currentModalProperty ? currentModalProperty.title : "Property";
+
+            closeModal('propertyModal');
+            showToast(`Visit booked for ${propTitle} on ${date} (${slot})! Check your email for owner directions. 🎉`, true);
+        }
+
+        // Post Property Modal
+        function openPostModal() {
+            openModal('postPropertyModal');
+        }
+
+        function selectPresetPhoto(el, url) {
+            document.querySelectorAll('.photo-pick-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('postImageUrl').value = url;
+        }
+
+        function updatePhotoPreview(url) {
+            document.querySelectorAll('.photo-pick-option').forEach(opt => opt.classList.remove('selected'));
+        }
+
+        function handlePostProperty(e) {
+            e.preventDefault();
+            const title = document.getElementById('postTitle').value.trim();
+            const type = document.getElementById('postType').value;
+            const occupancy = document.getElementById('postOccupancy').value;
+            const location = document.getElementById('postLocation').value.trim();
+            const price = parseInt(document.getElementById('postPrice').value);
+            const deposit = document.getElementById('postDeposit').value.trim();
+            const image = document.getElementById('postImageUrl').value.trim() || "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80";
+            const hostName = document.getElementById('postHostName').value.trim();
+            const hostPhone = document.getElementById('postHostPhone').value.trim();
+            const description = document.getElementById('postDesc').value.trim() || `${type} available for rent in ${location}. Features high speed WiFi, power backup, and regular maintenance.`;
+
+            // Collect selected amenities
+            const selectedAmens = [];
+            document.querySelectorAll('input[name="postAmenity"]:checked').forEach(cb => {
+                selectedAmens.push(cb.value);
+            });
+
+            const newProperty = {
+                id: Date.now(),
+                title,
+                type,
+                occupancy,
+                location,
+                price,
+                deposit,
+                rating: 5.0,
+                reviewsCount: 1,
+                availability: "Ready to Move",
+                hostName: `${hostName} (Owner)`,
+                hostPhone,
+                image,
+                gallery: [
+                    image,
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+                ],
+                amenities: selectedAmens.length > 0 ? selectedAmens : ["WiFi", "Attached Bath", "No Brokerage"],
+                description,
+                isCustom: true
+            };
+
+            // Save to localStorage
+            try {
+                const existing = JSON.parse(localStorage.getItem('rentease_custom_properties') || '[]');
+                existing.unshift(newProperty);
+                localStorage.setItem('rentease_custom_properties', JSON.stringify(existing));
+            } catch (err) {
+                console.error("Error saving custom property", err);
+            }
+
+            closeModal('postPropertyModal');
+            document.getElementById('postPropertyForm').reset();
+            renderListings();
+
+            // Scroll to the new card
+            setTimeout(() => {
+                const newCard = document.getElementById(`prop-${newProperty.id}`);
+                if (newCard) {
+                    newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    newCard.style.boxShadow = '0 0 0 3px #10b981';
+                    setTimeout(() => newCard.style.boxShadow = '', 2500);
+                }
+            }, 200);
+
+            showToast("Property listed successfully! It is now visible to all tenants 🚀", true);
+        }
+
+        // Generic Modal Helpers
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function closeModalOnOutside(e, id) {
+            if (e.target.id === id) {
+                closeModal(id);
+            }
+        }
+
+        // Toast Helper
+        function showToast(message, isSuccess = false) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = message;
+            document.getElementById('toastIcon').innerText = isSuccess ? '🎉' : '🔔';
+            toast.className = 'toast show' + (isSuccess ? ' success' : '');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>

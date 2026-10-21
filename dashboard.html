@@ -1390,8 +1390,11 @@
                 <button class="tab-btn active" id="tabBrowseBtn" onclick="switchTab('browse')">
                     🔍 Explore Rooms & PGs
                 </button>
+                <a href="property-list.html" class="tab-btn" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center;">
+                    📋 All Properties
+                </a>
                 <button class="tab-btn" id="tabSavedBtn" onclick="switchTab('saved')">
-                    ❤️ Saved <span class="tab-badge" id="savedCountBadge">0</span>
+                    ❤️ Saved <span class="tab-badge" id="savedCountBadhage">0</span>
                 </button>
                 <button class="tab-btn" id="tabProfileBtn" onclick="switchTab('profile')">
                     👤 Edit Profile
@@ -1400,6 +1403,7 @@
 
             <!-- Right Profile / Return -->
             <div class="nav-user">
+                <a href="property-list.html?action=list" class="btn-home" style="background: #10b981; color: white; border-color: #059669; font-weight: 700; text-decoration: none;" title="List your room, PG or flat">➕ List Property</a>
                 <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
                 <div class="user-chip" onclick="switchTab('profile')">
                     <img id="navAvatarImg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'" alt="Avatar" class="user-avatar">
@@ -1907,6 +1911,16 @@
         let savedPropertyIds = new Set();
         let currentModalProperty = null;
 
+        // Fetch combined properties (default + user listed properties from localStorage)
+        function getAllDashboardProperties() {
+            try {
+                const custom = JSON.parse(localStorage.getItem('rentease_custom_properties') || '[]');
+                return [...custom, ...propertiesData];
+            } catch (e) {
+                return propertiesData;
+            }
+        }
+
         // Init on page load
         window.addEventListener('DOMContentLoaded', () => {
             loadTheme();
@@ -1915,7 +1929,7 @@
             
             // Set dynamic total count in hero banner
             const totalCountEl = document.getElementById('totalListingsCount');
-            if (totalCountEl) totalCountEl.innerText = propertiesData.length;
+            if (totalCountEl) totalCountEl.innerText = getAllDashboardProperties().length;
 
             renderListings();
             
@@ -2005,7 +2019,13 @@
             const budgetVal = document.getElementById('budgetFilter').value;
             const sortVal = document.getElementById('sortFilter') ? document.getElementById('sortFilter').value : 'recommended';
 
-            let filtered = propertiesData.filter(item => {
+            const allProps = getAllDashboardProperties();
+
+            // Keep stat in sync
+            const totalCountEl = document.getElementById('totalListingsCount');
+            if (totalCountEl) totalCountEl.innerText = allProps.length;
+
+            let filtered = allProps.filter(item => {
                 // Location/title search
                 const matchSearch = searchVal === '' || 
                     item.title.toLowerCase().includes(searchVal) || 
@@ -2024,7 +2044,7 @@
                 let matchAmenities = true;
                 if (selectedAmenities.size > 0) {
                     for (let am of selectedAmenities) {
-                        if (!item.amenities.includes(am)) {
+                        if (!item.amenities || !item.amenities.includes(am)) {
                             matchAmenities = false;
                             break;
                         }
@@ -2043,7 +2063,7 @@
                 filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
             }
 
-            document.getElementById('resultsCount').innerText = `Showing ${filtered.length} of ${propertiesData.length} properties`;
+            document.getElementById('resultsCount').innerText = `Showing ${filtered.length} of ${allProps.length} properties`;
 
             if (filtered.length === 0) {
                 container.innerHTML = `
@@ -2063,7 +2083,8 @@
         // Render saved listings
         function renderSavedListings() {
             const container = document.getElementById('savedContainer');
-            const savedItems = propertiesData.filter(item => savedPropertyIds.has(item.id));
+            const allProps = getAllDashboardProperties();
+            const savedItems = allProps.filter(item => savedPropertyIds.has(item.id));
             
             document.getElementById('savedCountText').innerText = `${savedItems.length} saved properties`;
 
@@ -2166,7 +2187,7 @@
 
         // Modal Controls
         function openDetailsModal(id) {
-            const property = propertiesData.find(p => p.id === id);
+            const property = getAllDashboardProperties().find(p => p.id === id);
             if (!property) return;
             currentModalProperty = property;
 
