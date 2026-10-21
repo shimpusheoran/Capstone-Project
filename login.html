@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentEase - Rent Anything, Anytime</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- Navbar -->
     <header>
         <nav>
-            <div class="logo"><a href="login.html">🏠 Rent<span>Ease</span></a></div>
+            <div class="logo"><a href="login.html" style="color: inherit; text-decoration: none;">RentEase</a></div>
 
             <div class="nav-links">
                 <a href="login.html">Home</a>
@@ -23,82 +19,52 @@
                 <a href="#properties">Explore</a>
                 <a href="#how-it-works">How It Works</a>
 
-                <a href="property-list.html?action=list" class="nav-btn-link"><button class="btn btn-list" type="button">+ List Property</button></a>
-                <a href="dashboard.html" class="nav-btn-link"><button class="btn btn-dashboard" type="button">Dashboard</button></a>
-                <a href="signin.html" class="nav-btn-link"><button class="btn btn-login" type="button">Login</button></a>
-                <a href="signup.html" class="nav-btn-link"><button class="btn btn-signup" type="button">Sign Up</button></a>
+                <a href="property-list.html?action=list" class="nav-btn-link"><button class="btn" type="button" style="background: #10b981; color: white; font-weight: 700;">+ List Property</button></a>
+                <a href="dashboard.html" class="nav-btn-link"><button class="btn dashboard-btn" type="button" style="background: #2878ff; color: white;">Dashboard</button></a>
+                <a href="signin.html" class="nav-btn-link"><button class="btn login" type="button">Login</button></a>
+                <a href="signup.html" class="nav-btn-link"><button class="btn signup" type="button">Sign Up</button></a>
             </div>
-
-            <!-- Dark/Light Toggle -->
-            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
-
-            <!-- Hamburger -->
-            <button class="hamburger" id="hamburger" onclick="toggleMenu()">☰</button>
         </nav>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="login.html">Home</a>
-            <a href="property-list.html">Property List</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="#properties">Explore</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="signin.html">Login</a>
-            <a href="signup.html">Sign Up</a>
-        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="hero-badge">✨ India's #1 Zero-Brokerage Platform</div>
-            <h1>Rent Anything,<br><span class="hero-highlight">Anytime.</span></h1>
-            <p>Rooms, PGs, Apartments, Bikes, Cars, and More — Verified &amp; Affordable</p>
+            <h1>Rent Anything, Anytime</h1>
+            <p>Rooms, PGs, Apartments, Bikes, Cars, and More</p>
 
             <div class="search-box">
-                <span class="search-icon">🔍</span>
                 <input type="text" id="heroSearchInput" placeholder="Search rooms, PGs, locations...">
                 <button onclick="window.location.href='property-list.html'">Search</button>
-            </div>
-
-            <div class="hero-stats">
-                <div class="stat-item"><strong>10,000+</strong><span>Listings</span></div>
-                <div class="stat-divider"></div>
-                <div class="stat-item"><strong>5,000+</strong><span>Happy Tenants</span></div>
-                <div class="stat-divider"></div>
-                <div class="stat-item"><strong>Zero</strong><span>Brokerage</span></div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Rental Homes -->
-    <section class="featured-homes">
-        <div class="section-label">🏡 Featured</div>
-        <h2 class="section-title">Find Your Perfect Rental Home</h2>
-        <p class="section-sub">Discover verified rental properties, apartments, PGs, and houses at affordable prices.</p>
-        <div style="margin-bottom: 32px;">
-            <a href="property-list.html" class="btn btn-primary-cta">Browse All Properties →</a>
+    <!-- Featured Rental Homes Section -->
+    <section class="featured-homes" style="padding: 60px 7%; background: #ffffff; text-align: center;">
+        <h2 class="section-title" style="margin-bottom: 12px;">Find Your Perfect Rental Home</h2>
+        <p style="color: #64748b; font-size: 18px; max-width: 650px; margin: 0 auto 24px;">
+            Discover verified rental properties, apartments, PGs, and houses at affordable prices.
+        </p>
+        <div style="margin-bottom: 30px;">
+            <a href="property-list.html" class="btn" style="background: #2878ff; font-weight: 600; padding: 12px 28px; text-decoration: none; border-radius: 8px; display: inline-block;">Browse All Properties →</a>
         </div>
-        <div class="featured-img-wrap">
-            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200" alt="Rental Home">
-            <div class="featured-img-badge">🔥 500+ New Listings This Week</div>
+        <div style="max-width: 1000px; margin: 0 auto; overflow: hidden; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200" alt="Rental Home" style="width: 100%; height: 380px; object-fit: cover; display: block;">
         </div>
     </section>
 
     <!-- Popular Categories -->
     <section class="categories" id="properties">
-        <div class="section-label">📂 Browse</div>
         <h2 class="section-title">Popular Categories</h2>
-        <p class="section-sub">Pick a category and find verified listings instantly.</p>
 
         <div class="category-container">
             <div class="category-card">
                 <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6" alt="Houses & PGs">
                 <div class="category-content">
-                    <h3>🏠 Rooms &amp; PGs</h3>
+                    <h3>🏠 Rooms & PGs</h3>
                     <p>Verified single rooms, shared PGs, and flats.</p>
-                    <a href="property-list.html">Explore Rooms &amp; PGs →</a>
+                    <a href="property-list.html" style="color: #2878ff; font-weight: 600; text-decoration: none;">Explore Rooms & PGs →</a>
                 </div>
             </div>
 
@@ -107,7 +73,7 @@
                 <div class="category-content">
                     <h3>🚗 Cars</h3>
                     <p>Cars for daily trips, weekend getaways, and travel.</p>
-                    <a href="#properties">Explore Cars →</a>
+                    <a href="#properties" style="color: #4f46e5; font-weight: 600; text-decoration: none;">Explore Cars →</a>
                 </div>
             </div>
 
@@ -116,7 +82,7 @@
                 <div class="category-content">
                     <h3>🏍️ Bikes</h3>
                     <p>Affordable bikes, scooters, and commuter rides.</p>
-                    <a href="#properties">Explore Bikes →</a>
+                    <a href="#properties" style="color: #4f46e5; font-weight: 600; text-decoration: none;">Explore Bikes →</a>
                 </div>
             </div>
         </div>
@@ -124,29 +90,25 @@
 
     <!-- How RentEase Works -->
     <section class="how-it-works" id="how-it-works">
-        <div class="section-label">⚙️ Process</div>
         <h2 class="section-title">How RentEase Works</h2>
-        <p class="section-sub">Rent anything in just three simple steps!</p>
+        <p style="text-align: center; color: #64748b; margin-top: -20px; margin-bottom: 40px; font-size: 16px;">Rent anything in just three simple steps!</p>
 
         <div class="steps-container">
             <div class="step-card">
-                <div class="step-icon">🔍</div>
-                <div class="step-number">01</div>
-                <h3>Find Your Rental</h3>
+                <h1 style="font-size: 42px; margin-bottom: 12px;">🔍</h1>
+                <h3>1. Find Your Rental</h3>
                 <p>Explore verified rooms, PGs, houses, bikes, and cars with zero brokerage.</p>
             </div>
 
             <div class="step-card">
-                <div class="step-icon">📅</div>
-                <div class="step-number">02</div>
-                <h3>Choose Your Dates</h3>
+                <h1 style="font-size: 42px; margin-bottom: 12px;">📅</h1>
+                <h3>2. Choose Your Dates</h3>
                 <p>Schedule an in-person visit or book instant slots at your convenience.</p>
             </div>
 
             <div class="step-card">
-                <div class="step-icon">🔑</div>
-                <div class="step-number">03</div>
-                <h3>Enjoy Your Rental</h3>
+                <h1 style="font-size: 42px; margin-bottom: 12px;">🔑</h1>
+                <h3>3. Enjoy Your Rental</h3>
                 <p>Move into your new space or drive away with hassle-free rental support.</p>
             </div>
         </div>
@@ -155,78 +117,39 @@
     <!-- Become a Rental Partner -->
     <section class="partner-section">
         <div class="partner-content">
-            <div class="partner-badge">💼 For Owners</div>
             <h2>Have Something to Rent?</h2>
-            <p>Turn your empty room, flat, PG, or vehicle into an earning opportunity. Join RentEase and connect with thousands of verified tenants.</p>
+            <p>
+                Turn your empty room, flat, PG, or vehicle into an earning opportunity.
+                Join RentEase and connect with thousands of verified tenants.
+            </p>
             <a href="signup.html" class="partner-btn">Become a Host / Partner →</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
-        <div class="section-label">ℹ️ About</div>
-        <h2 class="section-title">About RentEase</h2>
-        <p class="about-text">
+    <section class="about" id="about" style="padding: 70px 7%; background: #ffffff; text-align: center;">
+        <h2 class="section-title" style="margin-bottom: 16px;">About RentEase</h2>
+        <p style="max-width: 800px; margin: 0 auto; color: #475569; line-height: 1.8; font-size: 16px;">
             RentEase is India's next-generation rental platform designed to bring transparency, affordability, and simplicity to finding accommodations and rentals. From verified co-ed PGs and private studios to personal mobility rentals, we eliminate hidden costs and connect verified hosts directly with renters.
         </p>
     </section>
 
     <!-- Newsletter -->
     <section class="newsletter">
-        <div class="newsletter-inner">
-            <h2>Stay in the Loop 📩</h2>
-            <p>Get updates about new rental listings, PG vacancies, and special discounts.</p>
-            <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to RentEase updates!'); this.reset();">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
+        <h2>Stay in the Loop 📩</h2>
+        <p>Get updates about new rental listings, PG vacancies, and special discounts.</p>
+
+        <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to RentEase updates!');">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-inner">
-            <div class="footer-brand">🏠 Rent<span>Ease</span></div>
-            <p>© 2026 RentEase. All Rights Reserved. | Designed for effortless rentals.</p>
-            <div class="footer-links">
-                <a href="#properties">Properties</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#about">About</a>
-                <a href="signin.html">Login</a>
-                <a href="signup.html">Sign Up</a>
-            </div>
-        </div>
+    <footer id="contact" style="background: #1e293b; color: #94a3b8; padding: 40px 7%; text-align: center;">
+        <p>&copy; 2026 RentEase. All Rights Reserved. | Designed for effortless rentals.</p>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Theme toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const btn = document.getElementById('themeToggle');
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.setAttribute('data-theme', 'light');
-                btn.textContent = '🌙';
-                localStorage.setItem('rentease_theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                btn.textContent = '☀️';
-                localStorage.setItem('rentease_theme', 'dark');
-            }
-        }
-
-        // Load saved theme
-        (function() {
-            const saved = localStorage.getItem('rentease_theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', saved);
-            document.getElementById('themeToggle').textContent = saved === 'dark' ? '☀️' : '🌙';
-        })();
-
-        // Mobile menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('open');
-        }
-    </script>
 </body>
 </html>
