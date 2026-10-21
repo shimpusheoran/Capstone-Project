@@ -6,187 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentEase Login</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #eef4ff;
-        }
-
-        .container {
-            width: 900px;
-            min-height: 560px;
-            display: flex;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        }
-
-        .left {
-            width: 50%;
-            padding: 50px;
-            color: white;
-            background:
-                linear-gradient(rgba(20,65,130,.7),rgba(20,65,130,.7)),
-                url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80");
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 120px;
-        }
-
-        .logo a {
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .logo span {
-            color: #8ec5ff;
-        }
-
-        .left h1 {
-            font-size: 38px;
-            line-height: 1.2;
-            margin-bottom: 15px;
-        }
-
-        .left p {
-            line-height: 1.6;
-            opacity: .9;
-        }
-
-        .right {
-            width: 50%;
-            padding: 55px 50px;
-        }
-
-        .right h2 {
-            font-size: 30px;
-            color: #172b4d;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: #777;
-            margin-bottom: 30px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            outline: none;
-            margin-bottom: 20px;
-        }
-
-        input:focus {
-            border-color: #2878ff;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg,#2878ff,#1554c0);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        .otp-box {
-            display: none;
-        }
-
-        .otp-input {
-            text-align: center;
-            font-size: 25px;
-            letter-spacing: 8px;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
-            color: #2878ff;
-            cursor: pointer;
-        }
-
-        .switch-auth {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .switch-auth a {
-            color: #2878ff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .switch-auth a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .success {
-            color: green;
-        }
-
-        .error {
-            color: red;
-        }
-
-        @media(max-width:750px) {
-            .container {
-                width: 95%;
-            }
-
-            .left {
-                display: none;
-            }
-
-            .right {
-                width: 100%;
-                padding: 40px 30px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="signin.css">
 </head>
 
 <body>
@@ -215,6 +35,8 @@
 
         <!-- LOGIN -->
         <div id="loginBox">
+
+            <div id="statusBanner" style="display: none;"></div>
 
             <h2>Welcome Back 👋</h2>
 
@@ -245,7 +67,7 @@
             </button>
 
             <p class="switch-auth">
-                Don't have an account? <a href="signup.html">Sign Up</a>
+                Don't have an account? <a href="signup.html" id="linkToSignup" onclick="handleSignupLink(event)">Sign Up</a>
             </p>
 
         </div>
@@ -288,15 +110,19 @@
 
             <h2>Login Successful 🎉</h2>
 
-            <p class="subtitle">
+            <p class="subtitle" id="loginSuccessSubtitle">
                 Welcome to RentEase!
             </p>
 
             <button onclick="dashboard()">
-                Go to Dashboard
+                Go to Dashboard →
             </button>
 
-            <p class="switch-auth">
+            <p class="countdown-text" id="loginCountdownText">
+                Redirecting to Dashboard in <span id="loginCountdown">2</span>s...
+            </p>
+
+            <p class="switch-auth" style="margin-top: 15px;">
                 <a href="login.html">← Back to Home</a>
             </p>
 
@@ -310,83 +136,146 @@
 <script>
 
 let generatedOTP;
+let loginCountdownTimer;
 
+// Handle sequential URL query parameters
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const emailParam = params.get('email');
+    const isRegistered = params.get('registered') === 'true';
+    const isLogout = params.get('logout') === 'true';
+    const banner = document.getElementById('statusBanner');
+
+    if (isRegistered && banner) {
+        banner.className = 'banner banner-success';
+        banner.innerHTML = '✅ <strong>Account created!</strong> Please enter your password to log in.';
+        banner.style.display = 'block';
+    } else if (isLogout && banner) {
+        banner.className = 'banner banner-info';
+        banner.innerHTML = 'ℹ️ You have been logged out successfully.';
+        banner.style.display = 'block';
+    }
+
+    if (emailParam) {
+        const emailInput = document.getElementById('email');
+        if (emailInput) {
+            emailInput.value = emailParam;
+            const passwordInput = document.getElementById('password');
+            if (passwordInput) passwordInput.focus();
+        }
+    }
+});
+
+function handleSignupLink(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    if (email) {
+        window.location.href = 'signup.html?email=' + encodeURIComponent(email);
+    } else {
+        window.location.href = 'signup.html';
+    }
+}
 
 /* SEND OTP */
-
 function sendOTP() {
-
-    let email = document.getElementById("email").value;
+    let email = document.getElementById("email").value.trim();
     let password = document.getElementById("password").value;
     let message = document.getElementById("loginMessage");
 
     if (email === "" || password === "") {
-
         message.className = "message error";
         message.innerText = "Please enter email and password.";
-
         return;
     }
 
+    // Check registered users if any exist in localStorage
+    let registeredUsers = JSON.parse(localStorage.getItem('rentease_users') || '[]');
+    let user = registeredUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (user) {
+        // Validate password against registered user
+        if (user.password !== password) {
+            message.className = "message error";
+            message.innerText = "Incorrect password. Please try again.";
+            return;
+        }
+    } else if (registeredUsers.length > 0) {
+        console.log("No stored account found, proceeding with demo login mode.");
+    }
+
+    message.innerText = "";
+
     /* Demo OTP */
-
-    generatedOTP =
-        Math.floor(100000 + Math.random() * 900000);
-
+    generatedOTP = Math.floor(100000 + Math.random() * 900000);
     console.log("Your Demo OTP is:", generatedOTP);
 
     document.getElementById("loginBox").style.display = "none";
     document.getElementById("otpBox").style.display = "block";
 
-    alert(
-        "OTP: " + generatedOTP 
-        
-    );
+    alert("Your Demo OTP is: " + generatedOTP);
 }
 
-
 /* VERIFY OTP */
-
 function verifyOTP() {
-
-    let otp = document.getElementById("otp").value;
+    let otp = document.getElementById("otp").value.trim();
     let message = document.getElementById("otpMessage");
 
     if (otp == generatedOTP) {
-
         message.className = "message success";
         message.innerText = "OTP verified successfully!";
 
+        let email = document.getElementById("email").value.trim();
+        let registeredUsers = JSON.parse(localStorage.getItem('rentease_users') || '[]');
+        let user = registeredUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+        let userName = user ? user.name : 'Tenant';
+
+        // Update active session & profile
+        try {
+            localStorage.setItem('rentease_active_user', JSON.stringify({ email: email, name: userName }));
+            let stored = localStorage.getItem('rentease_user_profile');
+            let profile = stored ? JSON.parse(stored) : {};
+            profile.email = email;
+            if (user) profile.fullName = user.name;
+            localStorage.setItem('rentease_user_profile', JSON.stringify(profile));
+        } catch(e) {}
+
         setTimeout(function() {
-
             document.getElementById("otpBox").style.display = "none";
-
             document.getElementById("successBox").style.display = "block";
+            
+            const subtitleEl = document.getElementById("loginSuccessSubtitle");
+            if (subtitleEl) {
+                subtitleEl.innerHTML = `Welcome back, <strong>${userName}</strong>!`;
+            }
 
+            // Sequential auto-redirect to dashboard
+            let seconds = 2;
+            const countdownEl = document.getElementById("loginCountdown");
+            loginCountdownTimer = setInterval(() => {
+                seconds--;
+                if (countdownEl) countdownEl.innerText = seconds;
+                if (seconds <= 0) {
+                    clearInterval(loginCountdownTimer);
+                    dashboard();
+                }
+            }, 1000);
         }, 800);
 
     } else {
-
         message.className = "message error";
         message.innerText = "Invalid OTP. Please try again.";
-
     }
 }
 
-
 /* BACK */
-
 function goBack() {
-
     document.getElementById("otpBox").style.display = "none";
-
     document.getElementById("loginBox").style.display = "block";
 }
 
-
 /* DASHBOARD */
-
 function dashboard() {
+    if (loginCountdownTimer) clearInterval(loginCountdownTimer);
     let email = document.getElementById("email").value.trim();
     if (email) {
         try {

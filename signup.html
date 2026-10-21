@@ -5,207 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentEase Sign Up</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #eef4ff;
-            padding: 20px 0;
-        }
-
-        .container {
-            width: 900px;
-            min-height: 580px;
-            display: flex;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        }
-
-        .left {
-            width: 50%;
-            padding: 50px;
-            color: white;
-            background:
-                linear-gradient(rgba(20,65,130,.7),rgba(20,65,130,.7)),
-                url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80");
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .logo a {
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .logo span {
-            color: #8ec5ff;
-        }
-
-        .left-content h1 {
-            font-size: 36px;
-            line-height: 1.2;
-            margin-bottom: 15px;
-        }
-
-        .left-content p {
-            line-height: 1.6;
-            opacity: .9;
-        }
-
-        .left-footer {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
-        .right {
-            width: 50%;
-            padding: 45px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .right h2 {
-            font-size: 28px;
-            color: #172b4d;
-            margin-bottom: 6px;
-        }
-
-        .subtitle {
-            color: #777;
-            margin-bottom: 22px;
-            font-size: 14px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 6px;
-            font-size: 13px;
-            color: #333;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            outline: none;
-            margin-bottom: 14px;
-            font-size: 14px;
-            transition: border-color 0.2s;
-        }
-
-        input:focus {
-            border-color: #2878ff;
-        }
-
-        button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg,#2878ff,#1554c0);
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        .switch-auth {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .switch-auth a {
-            color: #2878ff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .switch-auth a:hover {
-            text-decoration: underline;
-        }
-
-        .otp-box {
-            display: none;
-        }
-
-        .otp-input {
-            text-align: center;
-            font-size: 25px;
-            letter-spacing: 8px;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
-            color: #2878ff;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .back:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-
-        .success {
-            color: #2e7d32;
-        }
-
-        .error {
-            color: #d32f2f;
-        }
-
-        @media(max-width:750px) {
-            .container {
-                width: 95%;
-                min-height: auto;
-            }
-
-            .left {
-                display: none;
-            }
-
-            .right {
-                width: 100%;
-                padding: 40px 25px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="signup.css">
 </head>
 
 <body>
@@ -281,7 +81,7 @@
             </button>
 
             <p class="switch-auth">
-                Already have an account? <a href="signin.html">Log In</a>
+                Already have an account? <a href="signin.html" id="linkToLogin" onclick="handleLoginLink(event)">Log In</a>
             </p>
 
         </div>
@@ -324,17 +124,21 @@
 
             <h2>Account Created 🎉</h2>
 
-            <p class="subtitle">
+            <p class="subtitle" id="signupSuccessSubtitle">
                 Welcome to RentEase! Your account has been created.
             </p>
 
-            <button onclick="window.location.href='signin.html'">
-                Go to Login
+            <button onclick="redirectToLogin()">
+                Continue to Login →
             </button>
 
-            <button onclick="dashboard()" style="margin-top: 10px; background: #2c3e50;">
-                Go to Dashboard
+            <button onclick="dashboard()" class="btn-secondary">
+                Go directly to Dashboard
             </button>
+
+            <p class="countdown-text" id="redirectCountdownText">
+                Redirecting to Login in <span id="signupCountdown">3</span>s...
+            </p>
 
         </div>
 
@@ -345,6 +149,31 @@
 
 <script>
 let generatedOTP;
+let countdownTimer;
+
+// Pre-fill email if passed in URL query param
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const emailParam = params.get('email');
+    if (emailParam) {
+        const emailInput = document.getElementById('email');
+        if (emailInput) {
+            emailInput.value = emailParam;
+            const nameInput = document.getElementById('name');
+            if (nameInput) nameInput.focus();
+        }
+    }
+});
+
+function handleLoginLink(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    if (email) {
+        window.location.href = 'signin.html?email=' + encodeURIComponent(email);
+    } else {
+        window.location.href = 'signin.html';
+    }
+}
 
 /* SEND OTP */
 function sendOTP() {
@@ -360,6 +189,12 @@ function sendOTP() {
         return;
     }
 
+    if (!/\S+@\S+\.\S+/.test(email)) {
+        message.className = "message error";
+        message.innerText = "Please enter a valid email address.";
+        return;
+    }
+
     if (password.length < 6) {
         message.className = "message error";
         message.innerText = "Password must be at least 6 characters.";
@@ -372,6 +207,15 @@ function sendOTP() {
         return;
     }
 
+    // Check if account already exists
+    let existingUsers = JSON.parse(localStorage.getItem('rentease_users') || '[]');
+    let exists = existingUsers.some(u => u.email.toLowerCase() === email.toLowerCase());
+    if (exists) {
+        message.className = "message error";
+        message.innerHTML = `Account already exists. <a href="signin.html?email=${encodeURIComponent(email)}" style="color:#2878ff;font-weight:bold;text-decoration:underline;">Log in here →</a>`;
+        return;
+    }
+
     /* Demo OTP */
     generatedOTP = Math.floor(100000 + Math.random() * 900000);
     console.log("Your Demo OTP is:", generatedOTP);
@@ -379,7 +223,7 @@ function sendOTP() {
     document.getElementById("signupBox").style.display = "none";
     document.getElementById("otpBox").style.display = "block";
 
-    alert("OTP: " + generatedOTP);
+    alert("Your Demo OTP is: " + generatedOTP);
 }
 
 /* VERIFY OTP */
@@ -391,14 +235,52 @@ function verifyOTP() {
         message.className = "message success";
         message.innerText = "OTP verified! Creating account...";
 
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let password = document.getElementById("password").value;
+
+        // Save registered user
+        let users = JSON.parse(localStorage.getItem('rentease_users') || '[]');
+        let userIdx = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+        let newUser = { name, email, password, registeredAt: new Date().toISOString() };
+        if (userIdx >= 0) users[userIdx] = newUser;
+        else users.push(newUser);
+        localStorage.setItem('rentease_users', JSON.stringify(users));
+
+        // Save user profile & active user session
+        let profile = { fullName: name, email: email, role: 'Tenant' };
+        localStorage.setItem('rentease_user_profile', JSON.stringify(profile));
+        localStorage.setItem('rentease_active_user', JSON.stringify({ name, email }));
+
         setTimeout(function() {
             document.getElementById("otpBox").style.display = "none";
             document.getElementById("successBox").style.display = "block";
+            document.getElementById("signupSuccessSubtitle").innerHTML = 
+                `Welcome to RentEase, <strong>${name}</strong>! Your account is created.`;
+
+            // Start sequential countdown to login
+            let seconds = 3;
+            const countdownEl = document.getElementById("signupCountdown");
+            countdownTimer = setInterval(() => {
+                seconds--;
+                if (countdownEl) countdownEl.innerText = seconds;
+                if (seconds <= 0) {
+                    clearInterval(countdownTimer);
+                    redirectToLogin();
+                }
+            }, 1000);
         }, 800);
     } else {
         message.className = "message error";
         message.innerText = "Invalid OTP. Please try again.";
     }
+}
+
+/* REDIRECT TO LOGIN */
+function redirectToLogin() {
+    if (countdownTimer) clearInterval(countdownTimer);
+    let email = document.getElementById("email").value.trim();
+    window.location.href = "signin.html?registered=true&email=" + encodeURIComponent(email);
 }
 
 /* BACK */
@@ -409,6 +291,7 @@ function goBack() {
 
 /* DASHBOARD */
 function dashboard() {
+    if (countdownTimer) clearInterval(countdownTimer);
     let name = document.getElementById("name").value.trim();
     let email = document.getElementById("email").value.trim();
     try {
